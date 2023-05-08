@@ -9,7 +9,7 @@ const searchFormEl = document.querySelector("#search-form");
 const galleryEl = document.querySelector(".gallery");
 
 let querySearch = "";
-querySearch = "pieniny";
+let page = 1;
 
 const searchParams = () =>
   new URLSearchParams({
