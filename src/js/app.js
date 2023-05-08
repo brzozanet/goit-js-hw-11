@@ -1,5 +1,6 @@
 import axios from "axios";
 import Notiflix from "notiflix";
+import { createGalleryItem } from "./createGalleryItem";
 
 const API_URL = "https://pixabay.com/api/";
 const API_KEY = "8543283-ac41910cbcd5ccb3a6a09e0db";
@@ -32,5 +33,20 @@ const fetchPhotos = async () => {
   }
 };
 
-console.log(searchParams());
-console.log(fetchPhotos());
+const createGallery = event => {
+    event.preventDefault();
+    galleryEl.innerHTML = "";
+    querySearch = event.currentTarget.elements.searchQuery.value.trim();
+    if (querySearch === "") {
+        return Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
+    }
+    fetchPhotos().then(data => {
+        if (data.hits.length === 0) {
+            return Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
+        }
+        Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
+        galleryEl.insertAdjacentHTML("beforeend", data.hits.map(createGalleryItem).join(""));
+    });
+};
+
+searchFormEl.addEventListener("submit", createGallery);
