@@ -72,3 +72,5 @@ const createGallery = event => {
 
 searchFormEl.addEventListener("submit", createGallery);
 loadMoreEl.addEventListener("click", () => showMorePhotos());
+
+console.log("Hello from app.js");
