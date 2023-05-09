@@ -6,11 +6,12 @@ const API_URL = "https://pixabay.com/api/";
 const API_KEY = "8543283-ac41910cbcd5ccb3a6a09e0db";
 const PHOTO_PER_PAGE = 40;
 
-const searchFormEl = document.querySelector("#search-form");
-const galleryEl = document.querySelector(".gallery");
-
 let querySearch = "";
 let page = 1;
+
+const searchFormEl = document.querySelector("#search-form");
+const galleryEl = document.querySelector(".gallery");
+const loadMoreBtnEl = document.querySelector(".load-more");
 
 const searchParams = () =>
   new URLSearchParams({
@@ -47,6 +48,7 @@ const createGallery = event => {
         Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
         galleryEl.insertAdjacentHTML("beforeend", data.hits.map(createGalleryItem).join(""));
     });
+    loadMoreBtnEl.classList.remove("is-hidden");
 };
 
 searchFormEl.addEventListener("submit", createGallery);
